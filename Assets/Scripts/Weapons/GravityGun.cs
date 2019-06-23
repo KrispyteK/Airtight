@@ -11,6 +11,7 @@ public class GravityGun : MonoBehaviour {
     public Rigidbody holding;
 
     private bool isHolding;
+    private Quaternion rotation;
 
     void Start() {
 
@@ -32,27 +33,48 @@ public class GravityGun : MonoBehaviour {
 
                     if (rb) {
                         holding = rb;
+
+                        rotation = Quaternion.Inverse(transform.rotation) * rb.transform.rotation;
+
+                        holding.freezeRotation = true;
+                        holding.useGravity = false;
+
+                        Physics.IgnoreCollision(transform.root.GetComponent<CharacterController>(), holding.GetComponent<Collider>(), true);
+                        Physics.IgnoreCollision(transform.root.GetComponent<Collider>(), holding.GetComponent<Collider>(), true);
                     }
                 }
             }
         } else {
             if (Input.GetButtonDown("Fire1")) {
                 holding.AddForce(
-                        transform.forward * holding.mass * shootForce
+                        transform.forward * shootForce
                     );
 
-                holding = null;
-                isHolding = false;
+                StopHolding();
             }
             else if (Input.GetButtonUp("Fire2")) {
-                holding = null;
+                StopHolding();
             }
             else if (Input.GetButton("Fire2")) {
                 holding.AddForce(
-                        ((transform.position + transform.forward - holding.worldCenterOfMass) - holding.velocity * 0.2f) * holding.mass * holdForce
+                        ((transform.position + transform.forward * holding.GetComponent<Collider>().bounds.size.magnitude - holding.worldCenterOfMass) - holding.velocity * 0.2f) * holding.mass * holdForce
                     );
+
+                holding.MoveRotation(transform.rotation * rotation);
             }
         }
+    }
+
+    private void StopHolding () {
+        Physics.IgnoreCollision(transform.root.GetComponent<CharacterController>(), holding.GetComponent<Collider>(), false);
+        Physics.IgnoreCollision(transform.root.GetComponent<Collider>(), holding.GetComponent<Collider>(), false);
+
+        if (transform.forward.y < -0.7) holding.MovePosition(transform.position + Vector3.Scale(transform.forward,new Vector3(1,0,1)).normalized * holding.GetComponent<Collider>().bounds.size.magnitude);
+
+        holding.useGravity = true;
+        holding.freezeRotation = false;
+        holding = null;
+        isHolding = false;
     }
 
     private void Impulse () {

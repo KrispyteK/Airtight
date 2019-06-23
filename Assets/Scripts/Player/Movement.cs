@@ -38,6 +38,8 @@ public partial class Movement : MonoBehaviour {
     }
 
     void Update () {
+        if (movementState == null) SetState(new GroundedState(this));
+
         CheckGround();
 
         desiredMovement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
