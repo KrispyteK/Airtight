@@ -25,7 +25,6 @@ public partial class Movement : MonoBehaviour {
         }
 
         public override void OnStateExit() {
-            print("Exited air state");
         }
     }
 }

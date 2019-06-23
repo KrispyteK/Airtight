@@ -84,4 +84,8 @@ public partial class Movement : MonoBehaviour {
     public void AddForce(Vector3 force) {
         velocity += force;
     }
+
+    public void Move (Vector3 move) {
+        characterController.Move(move);
+    }
 }

@@ -8,8 +8,6 @@ public partial class Movement : MonoBehaviour {
         }
 
         public override void OnStateEnter() {
-            print("Entered grounded state");
-
             _movement.velocity.y = 0;
         }
 
@@ -40,7 +38,6 @@ public partial class Movement : MonoBehaviour {
         }
 
         public override void OnStateExit() {
-            print("Exited grounded state");
         }
     }
 }
