@@ -3359,7 +3359,7 @@ MonoBehaviour:
   maxRange: 10
   castMask:
     serializedVersion: 2
-    m_Bits: 1079
+    m_Bits: 1025
   holding: {fileID: 0}
 --- !u!114 &963194231
 MonoBehaviour:
