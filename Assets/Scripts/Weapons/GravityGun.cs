@@ -5,12 +5,14 @@ using UnityEngine;
 public class GravityGun : MonoBehaviour {
 
     public float holdForce = 15f;
+    public float holdDamping = 1f;
     public float shootForce = 25f;
     public float maxRange;
     public LayerMask castMask;
     public Rigidbody holding;
 
-    private bool isHolding;
+    private float delta;
+    public bool isHolding;
     private Quaternion rotation;
 
     void Start() {
@@ -56,11 +58,20 @@ public class GravityGun : MonoBehaviour {
                 StopHolding();
             }
             else if (Input.GetButton("Fire2")) {
+                var targetPos = transform.position + transform.forward * holding.GetComponent<Collider>().bounds.size.magnitude;
+                var normal = (targetPos - holding.worldCenterOfMass);
+                var distance = normal.magnitude;
+                var _delta = distance - delta;
+
+                normal = normal.normalized;
+
                 holding.AddForce(
-                        ((transform.position + transform.forward * holding.GetComponent<Collider>().bounds.size.magnitude - holding.worldCenterOfMass) - holding.velocity * 0.2f) * holding.mass * holdForce
+                        (normal * Mathf.Pow(distance,0.8f) - holding.velocity * holdDamping) * holding.mass * holdForce
                     );
 
                 holding.MoveRotation(transform.rotation * rotation);
+
+                delta = _delta;
             }
         }
     }
@@ -83,7 +94,7 @@ public class GravityGun : MonoBehaviour {
         foreach (RaycastHit hit in hits) {
             var rb = hit.collider.gameObject.GetComponent<Rigidbody>();
 
-            if (rb) {
+            if (rb && rb != holding) {
                 rb.AddForce(
                       transform.forward * rb.mass * shootForce
                  );

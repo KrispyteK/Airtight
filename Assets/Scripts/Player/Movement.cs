@@ -19,10 +19,10 @@ public partial class Movement : MonoBehaviour {
     public Vector3 velocity;
 
     public MovementState movementState;
-
+    public Rigidbody rigidbody;
     public bool grounded = false;
     public Vector3 groundedNormal = Vector3.up;
-    private Rigidbody rigidbody;
+
     private CharacterController characterController;
     private CapsuleCollider capsuleCollider;
     private Vector3 desiredMovement;
@@ -84,7 +84,7 @@ public partial class Movement : MonoBehaviour {
     }
 
     public void AddForce(Vector3 force) {
-        velocity += force;
+        velocity += force / rigidbody.mass;
     }
 
     public void Move (Vector3 move) {

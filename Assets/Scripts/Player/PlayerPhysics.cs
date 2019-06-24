@@ -14,8 +14,26 @@ public class PlayerPhysics : MonoBehaviour {
         capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
+    void OnCollisionEnter (Collision collision) {
+        var rb = collision.collider.GetComponent<Rigidbody>();
+
+        if (rb) {
+            var velObject = collision.relativeVelocity;
+            var fKineticPlayer = 0.25f * rb.mass * (velObject.normalized * Mathf.Pow(velObject.magnitude, 2));
+            var velPlayer = playerMovement.velocity;
+            var fKineticObject = 0.25f * playerMovement.rigidbody.mass * (velPlayer.normalized * Mathf.Pow(velPlayer.magnitude, 2));
+
+            playerMovement.AddForce(fKineticPlayer);
+
+            print("Collision vel: " + velObject.magnitude);
+            print("Player vel: " + playerMovement.velocity.magnitude);
+
+            rb.AddForceAtPosition(fKineticObject, collision.contacts[0].point);
+        }
+    }
+
     void OnCollisionStay (Collision collision) {
-        print("Collision enter");
+        print("Collision stay");
 
         var rb = collision.collider.GetComponent<Rigidbody>();
 
@@ -33,17 +51,6 @@ public class PlayerPhysics : MonoBehaviour {
 
                 playerMovement.Move(direction * distance);
             }
-
-            var velocityDifference = rb.velocity - playerMovement.velocity;
-            var dot = Vector3.Dot(rb.velocity, collision.relativeVelocity);
-
-            if (dot <= 0) {
-                Debug.DrawLine(collision.contacts[0].point, collision.contacts[0].point + rb.velocity.normalized, Color.blue, 60f);
-
-                playerMovement.AddForce(collision.relativeVelocity * rb.mass);
-            }
-
-            rb.AddForceAtPosition(playerMovement.transform.forward * rigidBody.mass, collision.contacts[0].point);
         }
     }
 }

@@ -18,10 +18,6 @@ public class AirEmitter : MonoBehaviour {
             var instance = Instantiate(prefab, emitTransform.position, Quaternion.LookRotation(emitTransform.up * 10f + Random.insideUnitSphere));
 
             instance.GetComponent<AirProjectile>().velocityScalar = 5f;
-
-            instance.GetComponent<Rigidbody>().velocity = emitTransform.up * 1f;
-
-            print(instance.GetComponent<Rigidbody>().velocity);
         }
     }
 }
