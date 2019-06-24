@@ -22,14 +22,9 @@ public class PlayerPhysics : MonoBehaviour {
         // no rigidbody
         if (rb == null || rb.isKinematic) return;
 
-        if (hit.normal.y > Mathf.Cos(hit.controller.slopeLimit)) {
-            hit.controller.Move(rb.velocity * Time.deltaTime);
-        }
-        else {
-            rb.AddForceAtPosition(hit.moveDirection * playerMovement.rigidbody.mass * pushForce, hit.point);
+        rb.AddForceAtPosition(hit.moveDirection * playerMovement.rigidbody.mass * pushForce, hit.point);
 
-            rb.velocity += Vector3.ClampMagnitude(playerMovement.velocity, hit.controller.velocity.magnitude) / rb.mass;
-        }
+        rb.velocity += Vector3.ClampMagnitude(playerMovement.velocity, hit.controller.velocity.magnitude) / rb.mass;
     }
 
     void OnCollisionEnter (Collision collision) {
