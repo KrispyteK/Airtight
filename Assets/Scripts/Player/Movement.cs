@@ -32,7 +32,7 @@ public partial class Movement : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
 
-        capsuleCollider.radius += characterController.skinWidth;
+        //capsuleCollider.radius += characterController.skinWidth;
 
         SetState(new GroundedState(this));
     }
