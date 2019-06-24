@@ -12,8 +12,9 @@ public class GravityGun : MonoBehaviour {
     public Rigidbody holding;
 
     private float delta;
-    public bool isHolding;
+    private bool isHolding;
     private Quaternion rotation;
+    private bool beforeGravity;
 
     void Start() {
 
@@ -37,6 +38,8 @@ public class GravityGun : MonoBehaviour {
                         holding = rb;
 
                         rotation = Quaternion.Inverse(transform.rotation) * rb.transform.rotation;
+
+                        beforeGravity = holding.useGravity;
 
                         holding.freezeRotation = true;
                         holding.useGravity = false;
@@ -82,7 +85,7 @@ public class GravityGun : MonoBehaviour {
 
         if (transform.forward.y < -0.7) holding.MovePosition(transform.position + Vector3.Scale(transform.forward,new Vector3(1,0,1)).normalized * holding.GetComponent<Collider>().bounds.size.magnitude);
 
-        holding.useGravity = true;
+        holding.useGravity = beforeGravity;
         holding.freezeRotation = false;
         holding = null;
         isHolding = false;

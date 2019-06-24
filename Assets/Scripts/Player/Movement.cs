@@ -25,7 +25,7 @@ public partial class Movement : MonoBehaviour {
 
     private CharacterController characterController;
     private CapsuleCollider capsuleCollider;
-    private Vector3 desiredMovement;
+    public Vector3 desiredMovement;
 
     void Awake() {
         characterController = GetComponent<CharacterController>();
