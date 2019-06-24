@@ -22,22 +22,14 @@ public class PlayerPhysics : MonoBehaviour {
         // no rigidbody
         if (rb == null || rb.isKinematic) return;
 
-        //var m1 = playerMovement.rigidbody.mass;
-        //var m2 = rb.mass;
-        //var u1 = playerMovement.velocity;
-        //var u2 = rb.velocity;
+        if (hit.normal.y > Mathf.Cos(hit.controller.slopeLimit)) {
+            hit.controller.Move(rb.velocity * Time.deltaTime);
+        }
+        else {
+            rb.AddForceAtPosition(hit.moveDirection * playerMovement.rigidbody.mass * pushForce, hit.point);
 
-        //var v1 = ((m1 - m2) / (m1 + m2)) * u1 + ((2 * m2) / (m1 + m2)) * u2;
-        //var v2 = ((m2 - m1) / (m1 + m2)) * u2 + ((2 * m1) / (m1 + m2)) * u1;
-
-        //print(v1);
-
-        //playerMovement.AddForce(v1 * m2);
-        //rb.AddForceAtPosition(v2, hit.point);
-
-        rb.AddForceAtPosition(hit.moveDirection * playerMovement.rigidbody.mass * pushForce, hit.point);
-
-        rb.velocity += playerMovement.velocity / rb.mass;
+            rb.velocity += Vector3.ClampMagnitude(playerMovement.velocity, hit.controller.velocity.magnitude) / rb.mass;
+        }
     }
 
     void OnCollisionEnter (Collision collision) {
