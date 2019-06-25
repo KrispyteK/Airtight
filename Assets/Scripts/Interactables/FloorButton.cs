@@ -29,10 +29,7 @@ public class FloorButton : Interactable {
 
     IEnumerator CheckColliders () {
         while (true) {
-            for (int i = colliders.Count - 1; i > -1; i--) {
-                print(i);
-                print(colliders[i] == null);
-
+            for (int i = colliders.Count - 1; i > -1; i--) { 
                 if (colliders[i] == null) {
                     colliders.RemoveAt(i);
                 }
