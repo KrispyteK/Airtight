@@ -6,26 +6,22 @@ public class GravityGun : MonoBehaviour {
 
     public float holdForce = 15f;
     public float holdDamping = 1f;
-    public float shootForce = 25f;
     public float maxRange;
+    public GameObject airBubble;
     public LayerMask castMask;
     public Rigidbody holding;
 
-    private float delta;
     private bool isHolding;
     private Quaternion rotation;
     private bool beforeGravity;
-
-    void Start() {
-
-    }
+    private GameObject bubbleInstance;
 
     void Update() {
 
         if (Input.GetButtonDown("Fire2")) isHolding = true;
         if (Input.GetButtonUp("Fire2")) isHolding = false;
 
-        if (Input.GetButtonDown("Fire1")) Impulse();
+        if (Input.GetButtonDown("Fire1")) ShootAirBubble();
 
         if (holding == null) {
             if (isHolding) {
@@ -49,41 +45,34 @@ public class GravityGun : MonoBehaviour {
                     }
                 }
             }
-        } else {
-            if (Input.GetButtonDown("Fire1")) {
-                holding.AddForce(
-                        transform.forward * shootForce
-                    );
-
-                StopHolding();
-            }
-            else if (Input.GetButtonUp("Fire2")) {
+        }
+        else {
+            if (Input.GetButtonUp("Fire2")) {
                 StopHolding();
             }
             else if (Input.GetButton("Fire2")) {
-                var targetPos = transform.position + transform.forward * holding.GetComponent<Collider>().bounds.size.magnitude;
+                var targetPos = transform.position + transform.forward * holding.GetComponent<Collider>().bounds.size.magnitude - transform.up * 0.25f;
                 var normal = (targetPos - holding.worldCenterOfMass);
                 var distance = normal.magnitude;
-                var _delta = distance - delta;
+                var powDistance = distance < 1f ? Mathf.Pow(distance, 0.65f) : Mathf.Pow(distance, 1.5f);
 
                 normal = normal.normalized;
 
                 holding.AddForce(
-                        (normal * Mathf.Pow(distance,0.8f) - holding.velocity * holdDamping) * holding.mass * holdForce
+                        (normal * powDistance - holding.velocity * holdDamping) * holding.mass * holdForce,
+                        ForceMode.Acceleration
                     );
 
                 holding.MoveRotation(transform.rotation * rotation);
-
-                delta = _delta;
             }
         }
     }
 
-    private void StopHolding () {
+    private void StopHolding() {
         Physics.IgnoreCollision(transform.root.GetComponent<CharacterController>(), holding.GetComponent<Collider>(), false);
         Physics.IgnoreCollision(transform.root.GetComponent<Collider>(), holding.GetComponent<Collider>(), false);
 
-        if (transform.forward.y < -0.7) holding.MovePosition(transform.position + Vector3.Scale(transform.forward,new Vector3(1,0,1)).normalized * holding.GetComponent<Collider>().bounds.size.magnitude);
+        if (transform.forward.y < -0.7) holding.MovePosition(transform.position + Vector3.Scale(transform.forward, new Vector3(1, 0, 1)).normalized * holding.GetComponent<Collider>().bounds.size.magnitude);
 
         holding.useGravity = beforeGravity;
         holding.freezeRotation = false;
@@ -91,17 +80,12 @@ public class GravityGun : MonoBehaviour {
         isHolding = false;
     }
 
-    private void Impulse () {
-        var hits = Physics.SphereCastAll(transform.position, 0.5f, transform.forward, maxRange, castMask);
-
-        foreach (RaycastHit hit in hits) {
-            var rb = hit.collider.gameObject.GetComponent<Rigidbody>();
-
-            if (rb && rb != holding) {
-                rb.AddForce(
-                      transform.forward * rb.mass * shootForce
-                 );
-            }
+    private void ShootAirBubble() {
+        if (bubbleInstance) {
+            Destroy(bubbleInstance);
+        }
+        else {
+            bubbleInstance = Instantiate(airBubble, transform.position, transform.rotation);
         }
     }
 }

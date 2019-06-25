@@ -17,7 +17,7 @@ TagManager:
   - AirVolume
   - PhysicsObject
   - IgnorePhysicsObjects
-  - 
+  - PhysicsInteractable
   - 
   - 
   - 
