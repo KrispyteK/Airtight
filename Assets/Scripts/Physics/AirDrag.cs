@@ -40,7 +40,7 @@ public class AirDrag : MonoBehaviour {
         Vector3 force = Vector3.zero;
         Vector3 torque = Vector3.zero;
 
-        if (_force.magnitude > 0) {
+        if (_force.magnitude > 0 || _appliedForces > 0) {
             vel += -_force / _appliedForces;
             _force *= 0;
             _appliedForces = 0;
