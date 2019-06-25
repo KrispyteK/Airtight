@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorButton : MonoBehaviour {
+public class FloorButton : Interactable {
     public bool isPressed;
     public float pressDistance = 0.15f;
     public float speed = 10f;
@@ -15,6 +15,10 @@ public class FloorButton : MonoBehaviour {
         offset = transform.localPosition;
     }
 
+    void Awake () {
+        StartCoroutine(CheckColliders());
+    }
+
     void Update() {
         isPressed = colliders.Count > 0;
 
@@ -23,11 +27,20 @@ public class FloorButton : MonoBehaviour {
         transform.localPosition = Vector3.Lerp(transform.localPosition, offset + Vector3.down * distance, Time.deltaTime * speed);
     }
 
-    //void OnTriggerStay (Collider collider) {
-    //    if (collider.attachedRigidbody == null) return;
+    IEnumerator CheckColliders () {
+        while (true) {
+            for (int i = colliders.Count - 1; i > -1; i--) {
+                print(i);
+                print(colliders[i] == null);
 
-    //    collider.attachedRigidbody.AddForce(Vector3.down * 1000f);
-    //}
+                if (colliders[i] == null) {
+                    colliders.RemoveAt(i);
+                }
+            }
+
+            yield return new WaitForSecondsRealtime(0.5f);
+        }
+    }
 
     void OnTriggerEnter (Collider collider) {
         if (collider.attachedRigidbody == null) return;
