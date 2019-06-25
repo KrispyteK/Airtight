@@ -12,11 +12,11 @@ public partial class Movement : MonoBehaviour {
         }
 
         public override void OnStateUpdate() {
-            if (Input.GetButtonDown("Jump")) {
-                _movement.velocity += Vector3.up * Mathf.Sqrt(_movement.jumpHeight * 2f * Physics.gravity.magnitude * (_movement.fallSpeedMultiplier));
-                _movement.SetState(new AirState(_movement));
-                return;
-            }
+
+            if (_movement.wishJump)
+                _movement.ApplyFriction(0f);
+            else
+                _movement.ApplyFriction(_movement.friction);
 
             var rayCast = Physics.Raycast(_movement.transform.position, Vector3.down, out RaycastHit hit, _movement.characterController.height / 2 + _movement.characterController.skinWidth + 1f);
 
@@ -24,17 +24,19 @@ public partial class Movement : MonoBehaviour {
 
             _movement.characterController.Move(Vector3.down * hit.distance);
 
-            var vel = _movement.velocity;
-
-            if (vel.magnitude != 0) {
-                var drop = vel.magnitude * _movement.friction * Time.deltaTime;
-                _movement.velocity *= Mathf.Max(vel.magnitude - drop, 0) / vel.magnitude; // Scale the velocity based on friction.
-            }
+            _movement.ApplyFriction(_movement.friction);
 
             var movementDir = _movement.transform.TransformDirection(_movement.desiredMovement);
-            movementDir.y += Vector3.Dot(movementDir, -hit.normal);
+            movementDir.y += Vector3.Dot(movementDir, -_movement.groundedNormal);
 
             _movement.DoAcceleration(movementDir, _movement.acceleration, _movement.maxVelocity);
+
+            if (_movement.wishJump) {
+                _movement.velocity += Vector3.up * Mathf.Sqrt(_movement.jumpHeight * 2f * Physics.gravity.magnitude * (_movement.fallSpeedMultiplier));
+                _movement.SetState(new AirState(_movement));
+                _movement.wishJump = false;
+                return;
+            }
         }
 
         public override void OnStateExit() {

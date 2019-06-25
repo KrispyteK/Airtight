@@ -7,16 +7,20 @@ using UnityEngine;
 
 public partial class Movement : MonoBehaviour {
 
+    public float groundDistanceThreshold = 0.01f;
+
     public float maxVelocity = 12;
     public float acceleration = 100;
     public float friction = 8;
 
     public float fallMaxSpeedUp = 10f;
     public float airDrag = 0.1f;
+    public float airAcceleration = 25f;
     public float jumpHeight = 2f;
     public float fallSpeedMultiplier = 2f;
 
     public Vector3 velocity;
+    public bool wishJump;
 
     public MovementState movementState;
     public Rigidbody rigidbody;
@@ -44,6 +48,11 @@ public partial class Movement : MonoBehaviour {
 
         desiredMovement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
+        if (Input.GetButtonDown("Jump") && !wishJump)
+            wishJump = true;
+        if (Input.GetButtonUp("Jump"))
+            wishJump = false;
+
         movementState.OnStateUpdate();
 
         characterController.Move(velocity * Time.deltaTime);
@@ -54,11 +63,16 @@ public partial class Movement : MonoBehaviour {
     }
 
     public void CheckGround () {
-        grounded = rigidbody.SweepTest(Vector3.down, out RaycastHit hit, 0.25f);
+        var sweep = rigidbody.SweepTest(Vector3.down, out RaycastHit hit, 1f);
 
-        if (grounded) {
+        if (sweep) {
             groundedNormal = hit.normal;
         }
+
+        grounded = 
+            sweep && 
+            hit.distance < (characterController.skinWidth + groundDistanceThreshold) && 
+            groundedNormal.y > Mathf.Sin(characterController.slopeLimit);
     }
 
     public void SetState (MovementState state) {
@@ -67,6 +81,15 @@ public partial class Movement : MonoBehaviour {
         movementState = state;
 
         movementState.OnStateEnter();
+    }
+
+    public void ApplyFriction(float amount) {
+        var vel = velocity;
+
+        if (vel.magnitude != 0) {
+            var drop = vel.magnitude * amount * Time.deltaTime;
+            velocity *= Mathf.Max(vel.magnitude - drop, 0) / vel.magnitude; // Scale the velocity based on friction.
+        }
     }
 
     public void DoAcceleration(Vector3 wishDirection, float maxAccel, float maxVel) {
