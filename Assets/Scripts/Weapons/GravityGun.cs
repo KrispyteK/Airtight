@@ -7,6 +7,7 @@ public class GravityGun : MonoBehaviour {
     public float holdForce = 15f;
     public float holdDamping = 1f;
     public float maxRange;
+    public float bubbleShootOffset = 0.25f;
     public GameObject airBubble;
     public LayerMask castMask;
     public Rigidbody holding;
@@ -82,10 +83,16 @@ public class GravityGun : MonoBehaviour {
 
     private void ShootAirBubble() {
         if (bubbleInstance) {
-            Destroy(bubbleInstance);
+            bubbleInstance.GetComponent<AirBubble>().Kill();
         }
         else {
-            bubbleInstance = Instantiate(airBubble, transform.position, transform.rotation);
+            var rayCast = Physics.SphereCast(transform.position, 0.25f, transform.forward, out RaycastHit hit, bubbleShootOffset, castMask);
+
+            var position = transform.position;
+
+            position += transform.forward * (rayCast ? hit.distance : bubbleShootOffset);
+
+            bubbleInstance = Instantiate(airBubble, position, transform.rotation);
         }
     }
 }
