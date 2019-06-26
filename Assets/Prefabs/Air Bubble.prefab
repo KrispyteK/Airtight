@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1635883441173958096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 2633198300653417215}
   - {fileID: 1600197065321315484}
@@ -65,32 +65,14 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.35629147
-      value: 0.74365205
-      inSlope: 0.5342835
-      outSlope: 0.5342835
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.74182844
-      value: 0.6560517
-      inSlope: 0.6022822
-      outSlope: 0.6022822
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
+      time: 0.49447834
       value: 1
       inSlope: 0
       outSlope: 0
@@ -101,12 +83,15 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  maxPenetration: 0
+  minSize: 0.25
   maxSize: 2
   size: 2
   growTime: 0.25
-  sizeChangeSmoothing: 60
+  sizeChangeSmoothing: 10
   velocity: 10
   force: 50
+  explosionTime: 0.25
   layerMask:
     serializedVersion: 2
     m_Bits: 17
@@ -114,6 +99,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4113
   visualEffect: {fileID: 7823826534413165177}
+  explosion: {fileID: 549792133974387561, guid: 5e50d17d75d1d04438b68e1d18848145,
+    type: 3}
+  colliders: []
 --- !u!1 &3212169562853150386
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +148,7 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 5000
+      - m_Value: 50
         m_Name: Density
         m_Overridden: 1
     m_Vector2f:
