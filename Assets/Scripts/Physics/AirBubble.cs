@@ -77,12 +77,8 @@ public class AirBubble : MonoBehaviour {
             var dif = (colliders[i].transform.position - transform.position);
             var furthestPoint = colliders[i].ClosestPoint(transform.position + dif.normalized * 1000f);
 
-            Debug.DrawLine(transform.position, furthestPoint, Color.red);
-
             bounds.Encapsulate(furthestPoint);
         }
-
-        print(bounds);
 
         return bounds;
     }

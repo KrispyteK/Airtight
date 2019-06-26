@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 3481457891865195811}
   - component: {fileID: 3481457891865195810}
   - component: {fileID: 3481457891865195808}
+  - component: {fileID: 1046595143}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -169,8 +170,8 @@ Camera:
   m_GameObject: {fileID: 3481457891865195812}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -318,9 +319,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdForce: 100
-  holdDamping: 0.1
-  shootForce: 2500
+  holdDamping: 0.15
   maxRange: 10
+  bubbleShootOffset: 0.25
+  airBubble: {fileID: 1635883441173958096, guid: a522b43d8b555164fbccd4a155d2b0e2,
+    type: 3}
   castMask:
     serializedVersion: 2
     m_Bits: 1025
@@ -356,3 +359,19 @@ MonoBehaviour:
   velocityRollMultiplier: 0.25
   maxVelocityRoll: 4
   playerMovement: {fileID: 3481457891362946130}
+--- !u!114 &1046595143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3481457891865195812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e835920973665814fbbe0291d203a03e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 2.1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 13313
