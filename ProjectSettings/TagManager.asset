@@ -19,7 +19,7 @@ TagManager:
   - IgnorePhysicsObjects
   - PhysicsInteractable
   - ButtonInteractable
-  - 
+  - TriggerPlayer
   - 
   - 
   - 
