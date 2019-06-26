@@ -17091,7 +17091,7 @@ MonoBehaviour:
   left: {fileID: 1485611481}
   right: {fileID: 630312786}
   distance: 1.9
-  speed: 0.5
+  speed: 4
 --- !u!1 &1275162884
 GameObject:
   m_ObjectHideFlags: 0

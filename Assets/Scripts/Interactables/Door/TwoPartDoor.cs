@@ -12,9 +12,9 @@ public class TwoPartDoor : Toggleable {
     private float t;
 
     private void Update () {
-        t = Mathf.Clamp(t + Time.deltaTime * (toggled ? 1 : -1), 0, distance);
+        t = Mathf.Clamp(t + Time.deltaTime * speed * (toggled ? 1 : -1), 0, distance);
 
-        left.localPosition = new Vector3(t,0,0);
-        right.localPosition = new Vector3(-t, 0, 0);
+        left.localPosition = new Vector3(0,0,t);
+        right.localPosition = new Vector3(0,0, -t);
     }
 }
