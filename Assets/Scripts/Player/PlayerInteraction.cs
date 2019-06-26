@@ -15,7 +15,7 @@ public class PlayerInteraction : MonoBehaviour {
                 var interactable = hit.collider.GetComponent<Interactable>();
 
                 if (interactable) {
-                    interactable.onInteract.Invoke();
+                    interactable.onStartInteract.Invoke();
                 }
             }
         }

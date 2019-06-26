@@ -8,6 +8,7 @@ public class FloorButton : Interactable {
     public float speed = 10f;
 
     private Vector3 offset;
+    private bool wasPressed;
 
     public List<Collider> colliders = new List<Collider>();
 
@@ -20,7 +21,17 @@ public class FloorButton : Interactable {
     }
 
     void Update() {
+        wasPressed = isPressed;
+
         isPressed = colliders.Count > 0;
+
+        if (isPressed != wasPressed) {
+            if (isPressed) {
+                onStartInteract.Invoke();
+            } else {
+                onEndInteract.Invoke();
+            }
+        }
 
         var distance = isPressed ? pressDistance : 0;
 
