@@ -11,6 +11,7 @@ public class GravityGun : MonoBehaviour {
     public GameObject airBubble;
     public LayerMask castMask;
     public Rigidbody holding;
+    public PlayerPickup playerPickup;
 
     private bool isHolding;
     private Quaternion rotation;
@@ -19,7 +20,7 @@ public class GravityGun : MonoBehaviour {
 
     void Update() {
 
-        if (Input.GetButtonDown("Fire2")) isHolding = true;
+        if (Input.GetButtonDown("Fire2")) isHolding = false;
         if (Input.GetButtonUp("Fire2")) isHolding = false;
 
         if (Input.GetButtonDown("Fire1")) ShootAirBubble();
@@ -86,6 +87,8 @@ public class GravityGun : MonoBehaviour {
             bubbleInstance.GetComponent<AirBubble>().Kill();
         }
         else {
+            playerPickup.Drop();
+
             var rayCast = Physics.SphereCast(transform.position, 0.25f, transform.forward, out RaycastHit hit, bubbleShootOffset, castMask);
 
             var position = transform.position;

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour {
 
+    public float radius = 0.1f;
     public float distance = 1.5f;
     public LayerMask layerMask;
+    public Transform cameraTransform;
 
     void Update() {
         if (Input.GetButtonDown("Interact")) {
-            var rayCast = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, distance, layerMask);
+            var rayCast = RayCast(out RaycastHit hit);
 
             if (rayCast) {
                 var interactable = hit.collider.GetComponent<Interactable>();
@@ -19,5 +21,9 @@ public class PlayerInteraction : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public bool RayCast (out RaycastHit hit) {
+        return Physics.SphereCast(cameraTransform.position, radius, cameraTransform.forward, out hit, distance, layerMask);
     }
 }
