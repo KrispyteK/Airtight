@@ -37,9 +37,7 @@ public class PlayerPickup : MonoBehaviour {
 
             joint.targetPosition = anchor;
 
-            var rayCast = playerInteraction.RayCast(out RaycastHit hit);
-
-            if (rayCast && hit.collider.attachedRigidbody != holding) Drop();
+            //if (playerInteraction.RayCast(out RaycastHit hit) && hit.collider.attachedRigidbody != holding) Drop();
         }
 
         if (Input.GetButtonDown("Interact") && holding == null) {
