@@ -10,6 +10,7 @@ public class PlayerPickup : MonoBehaviour {
     public Transform cameraTransform;
     public float depression = -35f;
     public float distance = 1f;
+    public bool collision = false;
 
     private PlayerInteraction playerInteraction;
     private Collider col;
@@ -49,7 +50,7 @@ public class PlayerPickup : MonoBehaviour {
 
                     holding.useGravity = false;
 
-                    SetCollisions(false);
+                    SetCollisions(collision);
                 }
             }
         }

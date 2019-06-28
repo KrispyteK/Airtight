@@ -51,12 +51,6 @@ public class PlayerHealth : MonoBehaviour {
         health = 0;
         isAlive = false;
 
-        foreach (var component in gameObject.GetComponents<MonoBehaviour>()) {
-            if (component == this) continue;
-
-            component.enabled = false;
-        }
-
         cameraTransform.GetComponent<PlayerCamera>().enabled = false;
         cameraTransform.GetComponent<GravityGun>().enabled = false;
 
@@ -66,7 +60,16 @@ public class PlayerHealth : MonoBehaviour {
 
         var rb = cameraTransform.gameObject.AddComponent<Rigidbody>();
 
-        rb.AddForce(Vector3.down);
-        rb.AddTorque(Random.insideUnitSphere);
+        rb.velocity = gameObject.GetComponent<Movement>().velocity;
+
+        //rb.AddForce(Vector3.down);
+        //rb.AddTorque(Random.insideUnitSphere * 0.1f);
+
+        foreach (var component in gameObject.GetComponents<MonoBehaviour>()) {
+            if (component == this) continue;
+
+            component.enabled = false;
+        }
+
     }
 }

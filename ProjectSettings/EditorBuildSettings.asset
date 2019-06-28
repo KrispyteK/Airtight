@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Tests/DestructiveWall.unity
+    guid: 93dbadd34b487b94db070f2c7259ed59
   m_configObjects: {}
