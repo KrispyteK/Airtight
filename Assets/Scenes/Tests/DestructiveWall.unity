@@ -6008,6 +6008,11 @@ PrefabInstance:
       propertyPath: disableOnDeath.Array.data[0]
       value: 
       objectReference: {fileID: 1400173851}
+    - target: {fileID: 3481457891865195814, guid: 2e99e82f3a2b5e6478f3f147577e02d2,
+        type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e99e82f3a2b5e6478f3f147577e02d2, type: 3}
 --- !u!1 &444409755
