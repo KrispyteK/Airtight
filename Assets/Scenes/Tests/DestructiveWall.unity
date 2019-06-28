@@ -22385,7 +22385,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41250
+  m_Name: pb_Mesh30680
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -33012,7 +33012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2036189068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33027,7 +33027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters:
     albedo: {r: 0.97380567, g: 1, b: 0.5424528, a: 1}
-    meanFreePath: 5
+    meanFreePath: 10
     asymmetry: 0
     volumeMask: {fileID: 0}
     textureScrollingSpeed: {x: 0, y: 0, z: 0}
