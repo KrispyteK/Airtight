@@ -7,6 +7,13 @@ using UnityEngine;
 
 public partial class Movement : MonoBehaviour {
 
+    public Transform cameraTransform;
+    public float height = 1.8f;
+    public float cameraHeight = 1.8f;
+    public float crouchCameraHeight = 0.9f;
+    public float crouchHeight = 1f;
+    public float crouchTime = 0.5f;
+
     public float groundDistanceThreshold = 0.01f;
 
     public float maxVelocity = 12;
@@ -26,12 +33,14 @@ public partial class Movement : MonoBehaviour {
 
     public MovementState movementState;
     public Rigidbody rigidbody;
-    public bool grounded = false;
+    public bool isCrouching;
+    public bool grounded;
     public Vector3 groundedNormal = Vector3.up;
 
     private CharacterController characterController;
     private CapsuleCollider capsuleCollider;
-    public Vector3 desiredMovement;
+    private float crouchLerp;
+    private Vector3 desiredMovement;
 
     void Awake() {
         characterController = GetComponent<CharacterController>();
@@ -57,6 +66,8 @@ public partial class Movement : MonoBehaviour {
 
         movementState.OnStateUpdate();
 
+        CrouchMovement();
+
         characterController.Move(velocity * Time.deltaTime);
 
         // Prevent the input velocity from getting bigger than what the real velocity is.
@@ -75,6 +86,26 @@ public partial class Movement : MonoBehaviour {
             sweep && 
             hit.distance < (characterController.skinWidth + groundDistanceThreshold) && 
             groundedNormal.y > Mathf.Sin(characterController.slopeLimit);
+    }
+
+    private void CrouchMovement() {
+        isCrouching = Input.GetButton("Crouch");
+
+        var desiredCrouchLerp = isCrouching ? 0 : 1f;
+
+        crouchLerp = Mathf.Max(Mathf.Min(crouchLerp + (desiredCrouchLerp * 2 - 1) * Time.deltaTime / crouchTime, 1f), 0);
+
+        float appliedCrouchHeight = height * crouchLerp + crouchHeight * (1 - crouchLerp);
+
+        capsuleCollider.height = characterController.height = appliedCrouchHeight;
+        capsuleCollider.center = characterController.center = Vector3.up * (appliedCrouchHeight / height);
+
+        cameraTransform.localPosition = Vector3.up * (cameraHeight * crouchLerp + crouchCameraHeight * (1 - crouchLerp));
+
+        // Sort of enables crouch jumping.
+        if (!grounded) {
+            characterController.Move(Vector3.up * -(desiredCrouchLerp - crouchLerp) * Time.deltaTime / crouchTime * height);
+        }
     }
 
     public void SetState (MovementState state) {

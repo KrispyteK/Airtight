@@ -6001,19 +6001,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1889209727, guid: 2e99e82f3a2b5e6478f3f147577e02d2, type: 3}
-      propertyPath: disableOnDeath.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1889209727, guid: 2e99e82f3a2b5e6478f3f147577e02d2, type: 3}
-      propertyPath: disableOnDeath.Array.data[0]
-      value: 
-      objectReference: {fileID: 1400173851}
-    - target: {fileID: 3481457891865195814, guid: 2e99e82f3a2b5e6478f3f147577e02d2,
-        type: 3}
-      propertyPath: field of view
-      value: 90
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e99e82f3a2b5e6478f3f147577e02d2, type: 3}
 --- !u!1 &444409755
@@ -23170,18 +23157,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1400173851 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6029921547992645049, guid: 2e99e82f3a2b5e6478f3f147577e02d2,
-    type: 3}
-  m_PrefabInstance: {fileID: 441480086}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!20 &1400173852 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3481457891865195814, guid: 2e99e82f3a2b5e6478f3f147577e02d2,
