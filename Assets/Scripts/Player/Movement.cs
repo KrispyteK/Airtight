@@ -13,6 +13,7 @@ public partial class Movement : MonoBehaviour {
     public float crouchCameraHeight = 0.9f;
     public float crouchHeight = 1f;
     public float crouchTime = 0.5f;
+    public float crouchVelocity = 6;
 
     public float groundDistanceThreshold = 0.01f;
 

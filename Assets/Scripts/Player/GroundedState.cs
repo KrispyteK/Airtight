@@ -29,7 +29,7 @@ public partial class Movement : MonoBehaviour {
             var movementDir = _movement.transform.TransformDirection(_movement.desiredMovement);
             movementDir.y += Vector3.Dot(movementDir, -_movement.groundedNormal);
 
-            _movement.DoAcceleration(movementDir, _movement.acceleration, _movement.maxVelocity);
+            _movement.DoAcceleration(movementDir, _movement.acceleration, !_movement.isCrouching ? _movement.maxVelocity : _movement.crouchVelocity);
 
             if (_movement.wishJump) {
                 _movement.velocity += Vector3.up * Mathf.Sqrt(_movement.jumpHeight * 2f * Physics.gravity.magnitude * (_movement.fallSpeedMultiplier));
