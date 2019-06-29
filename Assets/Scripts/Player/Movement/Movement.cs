@@ -58,11 +58,11 @@ public partial class Movement : MonoBehaviour {
 
         CheckGround();
 
-        desiredMovement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        desiredMovement = new Vector3(InputManager.GetAxisRaw("Horizontal"), 0, InputManager.GetAxisRaw("Vertical")).normalized;
 
-        if (Input.GetButtonDown("Jump") && !wishJump)
+        if (InputManager.GetButtonDown("Jump") && !wishJump)
             wishJump = true;
-        if (Input.GetButtonUp("Jump"))
+        if (InputManager.GetButtonUp("Jump"))
             wishJump = false;
 
         movementState.OnStateUpdate();
@@ -90,7 +90,7 @@ public partial class Movement : MonoBehaviour {
     }
 
     private void CrouchMovement() {
-        isCrouching = Input.GetButton("Crouch");
+        isCrouching = InputManager.GetButton("Crouch");
 
         var desiredCrouchLerp = isCrouching ? 0 : 1f;
 

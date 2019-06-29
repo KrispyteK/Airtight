@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour {
         vignette.smoothness.Override(Mathf.Lerp(1f, standardVignette.smoothness.value, normalizedHealth));
 
         if (!isAlive) {
-            if (Input.anyKey) {
+            if (InputManager.AnyKeyDown()) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }

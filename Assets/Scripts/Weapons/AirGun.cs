@@ -14,7 +14,7 @@ public class AirGun : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetButton("Fire1") && (Time.timeSinceLevelLoad - _lastFireTime) > fireDelay) {
+        if (InputManager.GetButton("Fire1") && (Time.timeSinceLevelLoad - _lastFireTime) > fireDelay) {
             _lastFireTime = Time.timeSinceLevelLoad;
 
             var instance = Instantiate(prefab, transform.position, transform.rotation);

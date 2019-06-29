@@ -18,8 +18,8 @@ public class PlayerCamera : MonoBehaviour {
     }
 
     void Update() {
-        transform.parent.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
-        mouseY -= Input.GetAxis("Mouse Y");
+        transform.parent.Rotate(new Vector3(0, InputManager.GetAxis("Mouse X"), 0));
+        mouseY -= InputManager.GetAxis("Mouse Y");
         mouseY = Mathf.Clamp(mouseY, -90, 90);
 
         var desiredRoll = 0; // transform.InverseTransformDirection(playerMovement.velocity).x * -velocityRollMultiplier;

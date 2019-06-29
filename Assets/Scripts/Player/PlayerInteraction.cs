@@ -12,7 +12,7 @@ public class PlayerInteraction : MonoBehaviour {
     public Interactable interactable;
 
     void Update() {
-        if (Input.GetButtonDown("Interact")) {
+        if (InputManager.GetButtonDown("Interact")) {
             var rayCast = RayCast(out RaycastHit hit);
 
             if (rayCast) {
@@ -22,7 +22,7 @@ public class PlayerInteraction : MonoBehaviour {
                     interactable.onStartInteract.Invoke();
                 }
             }
-        } else if (Input.GetButtonUp("Interact")) {
+        } else if (InputManager.GetButtonUp("Interact")) {
             if (interactable) {
                 interactable.onEndInteract.Invoke();
             }

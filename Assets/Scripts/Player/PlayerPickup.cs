@@ -41,7 +41,7 @@ public class PlayerPickup : MonoBehaviour {
             //if (playerInteraction.RayCast(out RaycastHit hit) && hit.collider.attachedRigidbody != holding) Drop();
         }
 
-        if (Input.GetButtonDown("Interact") && holding == null) {
+        if (InputManager.GetButtonDown("Interact") && holding == null) {
             var rayCast = playerInteraction.RayCast(out RaycastHit hit);
 
             if (rayCast) {
@@ -54,7 +54,7 @@ public class PlayerPickup : MonoBehaviour {
                 }
             }
         }
-        else if (Input.GetButtonDown("Interact") && holding) {
+        else if (InputManager.GetButtonDown("Interact") && holding) {
             Drop();
         }
     }

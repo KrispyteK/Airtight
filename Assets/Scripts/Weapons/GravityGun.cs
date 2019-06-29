@@ -20,10 +20,10 @@ public class GravityGun : MonoBehaviour {
 
     void Update() {
 
-        if (Input.GetButtonDown("Fire2")) isHolding = false;
-        if (Input.GetButtonUp("Fire2")) isHolding = false;
+        if (InputManager.GetButtonDown("Fire2")) isHolding = false;
+        if (InputManager.GetButtonUp("Fire2")) isHolding = false;
 
-        if (Input.GetButtonDown("Fire1")) ShootAirBubble();
+        if (InputManager.GetButtonDown("Fire1")) ShootAirBubble();
 
         if (holding == null) {
             if (isHolding) {
@@ -49,10 +49,10 @@ public class GravityGun : MonoBehaviour {
             }
         }
         else {
-            if (Input.GetButtonUp("Fire2")) {
+            if (InputManager.GetButtonUp("Fire2")) {
                 StopHolding();
             }
-            else if (Input.GetButton("Fire2")) {
+            else if (InputManager.GetButton("Fire2")) {
                 var targetPos = transform.position + transform.forward * holding.GetComponent<Collider>().bounds.size.magnitude - transform.up * 0.25f;
                 var normal = (targetPos - holding.worldCenterOfMass);
                 var distance = normal.magnitude;
