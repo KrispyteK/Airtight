@@ -76,7 +76,7 @@ public partial class Movement : MonoBehaviour {
     }
 
     public void CheckGround () {
-        var sweep = rigidbody.SweepTest(Vector3.down, out RaycastHit hit, 1f);
+        var sweep = rigidbody.SweepTest(Vector3.down, out RaycastHit hit, 1f, QueryTriggerInteraction.Ignore);
 
         if (sweep) {
             groundedNormal = hit.normal;
