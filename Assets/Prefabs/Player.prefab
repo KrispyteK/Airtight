@@ -262,9 +262,9 @@ MonoBehaviour:
   crouchCameraHeight: 0.7
   crouchHeight: 0.85
   crouchTime: 0.125
-  crouchVelocity: 6
+  crouchVelocity: 3
   groundDistanceThreshold: 0.01
-  maxVelocity: 14
+  maxVelocity: 7
   acceleration: 75
   friction: 5
   slopeAngle: 45
