@@ -9,16 +9,22 @@ public class PlayerInteraction : MonoBehaviour {
     public LayerMask layerMask;
     public Transform cameraTransform;
 
+    public Interactable interactable;
+
     void Update() {
         if (Input.GetButtonDown("Interact")) {
             var rayCast = RayCast(out RaycastHit hit);
 
             if (rayCast) {
-                var interactable = hit.collider.GetComponent<Interactable>();
+                interactable = hit.collider.GetComponent<Interactable>();
 
                 if (interactable) {
                     interactable.onStartInteract.Invoke();
                 }
+            }
+        } else if (Input.GetButtonUp("Interact")) {
+            if (interactable) {
+                interactable.onEndInteract.Invoke();
             }
         }
     }
