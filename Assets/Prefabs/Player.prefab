@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3b0e4112f23cc45940e28665ffe6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushForce: 1
+  pushForce: 1000
 --- !u!114 &3481457891362946130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +262,7 @@ MonoBehaviour:
   crouchCameraHeight: 0.7
   crouchHeight: 0.85
   crouchTime: 0.125
+  crouchVelocity: 6
   groundDistanceThreshold: 0.01
   maxVelocity: 14
   acceleration: 75
@@ -296,6 +297,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 13313
   cameraTransform: {fileID: 3481457891865195809}
+  interactable: {fileID: 0}
 --- !u!114 &3123862483963731375
 MonoBehaviour:
   m_ObjectHideFlags: 0
