@@ -257,18 +257,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundDistanceThreshold: 0.01
-  maxVelocity: 12
-  acceleration: 150
-  friction: 8
+  maxVelocity: 14
+  acceleration: 75
+  friction: 5
+  slopeAngle: 45
   fallMaxSpeedUp: 10
   airDrag: 0.1
-  airAcceleration: 10
+  airAcceleration: 15
   jumpHeight: 1
   fallSpeedMultiplier: 2
   velocity: {x: 0, y: 0, z: 0}
   wishJump: 0
-  rigidbody: {fileID: 0}
-  grounded: 0
+  rigidbody: {fileID: 3481457891362946141}
+  grounded: 1
   groundedNormal: {x: 0, y: 1, z: 0}
   desiredMovement: {x: 0, y: 0, z: 0}
 --- !u!114 &7760693628425945636
@@ -306,6 +307,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 3481457891865195809}
   depression: 35
   distance: 1
+  collision: 0
 --- !u!114 &1889209727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,8 +321,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  disableOnDeath: []
   cameraTransform: {fileID: 3481457891865195809}
+  sceneSettingsVolume: {fileID: 0}
+  isAlive: 1
 --- !u!1 &3481457891865195812
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +385,7 @@ Camera:
     height: 1
   near clip plane: 0.05
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

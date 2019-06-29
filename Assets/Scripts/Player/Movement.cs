@@ -13,6 +13,8 @@ public partial class Movement : MonoBehaviour {
     public float acceleration = 100;
     public float friction = 8;
 
+    public float slopeAngle = 45f;
+
     public float fallMaxSpeedUp = 10f;
     public float airDrag = 0.1f;
     public float airAcceleration = 25f;
