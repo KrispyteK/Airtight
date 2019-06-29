@@ -24,7 +24,9 @@ public partial class Movement : MonoBehaviour {
             var downVector = Vector3.down;
 
             // Project gravity direction on the slope we're hitting.
-            if (_movement.groundedNormal.y < 0.9f) Vector3.ProjectOnPlane(Vector3.down, _movement.groundedNormal);
+            if (_movement.groundedNormal.y < Mathf.Sin(_movement.slopeAngle)) downVector = Vector3.ProjectOnPlane(Vector3.down, _movement.groundedNormal);
+
+            Debug.DrawLine(_movement.transform.position, _movement.transform.position + downVector);
 
             // Faster fall velocity.
             if (_movement.velocity.y > -_movement.fallMaxSpeedUp) _movement.velocity += downVector * -Physics.gravity.y * (_movement.fallSpeedMultiplier - 1) * Time.deltaTime;
