@@ -209,7 +209,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -225,7 +225,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -257,10 +257,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 3481457891865195809}
-  cameraHeight: 1.8
-  crouchCameraHeight: 0.9
-  crouchHeight: 1
-  crouchTime: 0.5
+  height: 1.8
+  cameraHeight: 1.7
+  crouchCameraHeight: 0.7
+  crouchHeight: 0.85
+  crouchTime: 0.125
   groundDistanceThreshold: 0.01
   maxVelocity: 14
   acceleration: 75
