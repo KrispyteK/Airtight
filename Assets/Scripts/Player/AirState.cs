@@ -11,7 +11,7 @@ public partial class Movement : MonoBehaviour {
         public override void OnStateEnter() {
             enterTime = Time.timeSinceLevelLoad;
 
-            maxVelocity = _movement.velocity.magnitude;
+            maxVelocity = _movement.velocity.WithY(0).magnitude;
 
             _movement.characterController.slopeLimit = 90f;
         }
