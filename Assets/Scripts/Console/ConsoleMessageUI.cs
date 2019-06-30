@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ConsoleMessageUI : MonoBehaviour {
     private TMPro.TextMeshProUGUI textMesh;
@@ -8,7 +9,16 @@ public class ConsoleMessageUI : MonoBehaviour {
     public void SetMessage (string text, LogType type) {
         textMesh = GetComponent<TMPro.TextMeshProUGUI>();
         textMesh.text = text;
-        textMesh.autoSizeTextContainer = true;
+
+        int returns = text.Split('\n').Length - 1;
+
+        print(returns);
+
+        float height = textMesh.fontSize * Mathf.Max(returns, 1);
+
+        GetComponent<LayoutElement>().minHeight = height;
+
+        //textMesh.autoSizeTextContainer = true;
 
         switch (type) {
             case LogType.Error:

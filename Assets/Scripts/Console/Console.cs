@@ -17,8 +17,16 @@ public class Console : Singleton<Console> {
         var instance = Instance;
     }
 
+    private void Start () {
+        Initialise();
+    }
+
     private void OnEnable() {
-        settings = Resources.Load<ConsoleSettings>("Settings/Console Settings");
+        Initialise();
+    }
+
+    private void Initialise () {
+        CreateConsoleUI();
 
         Application.logMessageReceived += LogMessage;
     }
@@ -59,20 +67,17 @@ public class Console : Singleton<Console> {
     }
 
     public void CreateConsoleUI () {
+        settings = Resources.Load<ConsoleSettings>("Settings/Console Settings");
+
         if (UI) return;
 
         UI = Instantiate(settings.UIPrefab);
-
-        UI.GetComponent<Canvas>().worldCamera = Camera.main;
+        UI.SetActive(false);
 
         DontDestroyOnLoad(UI);
     }
 
     public void LogMessage (string condition, string stackTrace, LogType type) {
-        print(condition);
-
-        if (!string.IsNullOrEmpty(stackTrace) && stackTrace.Contains("Console") && type == LogType.Error) return;
-
         var msg = new ConsoleMessage {
             condition = condition,
             stackTrace = stackTrace,
