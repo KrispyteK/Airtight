@@ -20,7 +20,7 @@ public class ConsoleText : MonoBehaviour {
         string str = System.Convert.ToString(stringBuilder);
         int numLines = str.Split('\n').Length;
 
-        if (numLines > 250) {
+        if (numLines > 50) {
             var firstLine = stringBuilder.ToString().IndexOf(System.Environment.NewLine, System.StringComparison.Ordinal);
 
             stringBuilder.Remove(0, firstLine + System.Environment.NewLine.Length);

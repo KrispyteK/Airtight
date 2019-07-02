@@ -14,7 +14,7 @@ public class Console : Singleton<Console> {
 
     [RuntimeInitializeOnLoadMethod]
     private static void StartOnSceneLoad() {
-        var instance = Instance;
+        //var instance = Instance;
     }
 
     private void Start () {
