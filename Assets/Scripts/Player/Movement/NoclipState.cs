@@ -1,0 +1,33 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using CommandTerminal;
+
+public partial class Movement : MonoBehaviour {
+    private class NoclipState : MovementState {
+        public NoclipState(Movement movement) : base(movement) {
+
+        }
+
+        public override void OnStateEnter() {
+            print("Entering fly mode");
+
+            _movement.capsuleCollider.enabled = false;
+            _movement.characterController.detectCollisions = false;
+        }
+
+        public override void OnStateUpdate() {
+            Vector3 movementDir = _movement.cameraTransform.forward * _movement.desiredMovement.z + _movement.transform.right * _movement.desiredMovement.x;
+
+            _movement.ApplyFriction(_movement.friction);
+            _movement.DoAcceleration(movementDir, _movement.acceleration, !_movement.isCrouching ? _movement.maxVelocity : _movement.crouchVelocity);
+        }
+
+        public override void OnStateExit() {
+            print("Exiting fly mode");
+
+            _movement.capsuleCollider.enabled = true;
+            _movement.characterController.detectCollisions = true;
+        }
+    }
+}

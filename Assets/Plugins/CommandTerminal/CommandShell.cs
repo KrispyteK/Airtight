@@ -4,18 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CommandTerminal
-{
-    public struct CommandInfo
-    {
+namespace CommandTerminal {
+    public struct CommandInfo {
         public Action<CommandArg[]> proc;
         public int max_arg_count;
         public int min_arg_count;
         public string help;
     }
 
-    public struct CommandArg
-    {
+    public struct CommandArg {
         public string String { get; set; }
 
         public int Int {
@@ -71,8 +68,7 @@ namespace CommandTerminal
         }
     }
 
-    public class CommandShell
-    {
+    public class CommandShell {
         Dictionary<string, CommandInfo> commands = new Dictionary<string, CommandInfo>();
         List<CommandArg> arguments = new List<CommandArg>(); // Cache for performance
 
@@ -99,7 +95,8 @@ namespace CommandTerminal
                         if (method.Name.StartsWith("FRONTCOMMAND", StringComparison.CurrentCultureIgnoreCase)) {
                             // Front-end Command methods don't implement RegisterCommand, use default attribute
                             attribute = new RegisterCommandAttribute();
-                        } else {
+                        }
+                        else {
                             continue;
                         }
                     }
@@ -112,16 +109,19 @@ namespace CommandTerminal
                     if (attribute.Name == null) {
                         // Use the method's name as the command's name
                         command_name = InferCommandName(command_name == null ? method.Name : command_name);
-                    } else {
+                    }
+                    else {
                         command_name = attribute.Name;
                     }
 
-                   if (methods_params.Length != 1 || methods_params[0].ParameterType != typeof(CommandArg[])) {
+                    if (methods_params.Length != 1 || methods_params[0].ParameterType != typeof(CommandArg[])) {
                         // Method does not match expected Action signature,
                         // this could be a command that has a FrontCommand method to handle its arguments.
                         rejected_commands.Add(command_name.ToUpper(), CommandFromParamInfo(methods_params, attribute.Help));
                         continue;
                     }
+
+                    Debug.Log(command_name);
 
                     // Convert MethodInfo to Action.
                     // This is essentially allows us to store a reference to the method,
@@ -174,15 +174,18 @@ namespace CommandTerminal
             if (arg_count < command.min_arg_count) {
                 if (command.min_arg_count == command.max_arg_count) {
                     error_message = "exactly";
-                } else {
+                }
+                else {
                     error_message = "at least";
                 }
                 required_arg = command.min_arg_count;
-            } else if (command.max_arg_count > -1 && arg_count > command.max_arg_count) {
+            }
+            else if (command.max_arg_count > -1 && arg_count > command.max_arg_count) {
                 // Do not check max allowed number of arguments if it is -1
                 if (command.min_arg_count == command.max_arg_count) {
                     error_message = "exactly";
-                } else {
+                }
+                else {
                     error_message = "at most";
                 }
                 required_arg = command.max_arg_count;
@@ -240,7 +243,8 @@ namespace CommandTerminal
             if (index >= 0) {
                 // Method is prefixed, suffixed with, or contains "COMMAND".
                 command_name = method_name.Remove(index, 7);
-            } else {
+            }
+            else {
                 command_name = method_name;
             }
 
@@ -261,7 +265,8 @@ namespace CommandTerminal
                         max_arg_count = command.Value.max_arg_count,
                         help = command.Value.help
                     };
-                } else {
+                }
+                else {
                     IssueErrorMessage("{0} is missing a front command.", command);
                 }
             }
@@ -291,7 +296,8 @@ namespace CommandTerminal
             if (space_index >= 0) {
                 arg.String = s.Substring(0, space_index);
                 s = s.Substring(space_index + 1); // Remaining
-            } else {
+            }
+            else {
                 arg.String = s;
                 s = "";
             }

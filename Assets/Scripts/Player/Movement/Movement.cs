@@ -47,10 +47,12 @@ public partial class Movement : MonoBehaviour {
         characterController = GetComponent<CharacterController>();
         rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+    }
 
-        //capsuleCollider.radius += characterController.skinWidth;
-
+    void OnEnable () {
         SetState(new GroundedState(this));
+
+        CommandTerminal.Terminal.Shell.AddCommand("noclip", EnterNoclip);
     }
 
     void Update () {
@@ -146,5 +148,13 @@ public partial class Movement : MonoBehaviour {
 
     public void Move (Vector3 move) {
         characterController.Move(move);
+    }
+
+    public void EnterNoclip(CommandTerminal.CommandArg[] args) {
+        if (movementState is NoclipState) {
+            SetState(new GroundedState(this));
+        } else {
+            SetState(new NoclipState(this));
+        }
     }
 }
