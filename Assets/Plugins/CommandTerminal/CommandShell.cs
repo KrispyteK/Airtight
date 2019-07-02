@@ -121,8 +121,6 @@ namespace CommandTerminal {
                         continue;
                     }
 
-                    Debug.Log(command_name);
-
                     // Convert MethodInfo to Action.
                     // This is essentially allows us to store a reference to the method,
                     // which makes calling the method significantly more performant than using MethodInfo.Invoke().

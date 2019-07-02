@@ -21,7 +21,7 @@ TagManager:
   - PhysicsInteractable
   - ButtonInteractable
   - TriggerPlayer
-  - 
+  - TriggerOnly
   - 
   - 
   - 
