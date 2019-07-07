@@ -22,7 +22,7 @@ public class PlayerCamera : MonoBehaviour {
         mouseY -= InputManager.GetAxis("Mouse Y");
         mouseY = Mathf.Clamp(mouseY, -90, 90);
 
-        var desiredRoll = 0; // transform.InverseTransformDirection(playerMovement.velocity).x * -velocityRollMultiplier;
+        var desiredRoll = transform.InverseTransformDirection(playerMovement.velocity).x * -velocityRollMultiplier;
 
         if (velocityRollSmoothing != 0) {
             roll += (desiredRoll - roll) * Time.deltaTime * (1 / velocityRollSmoothing);

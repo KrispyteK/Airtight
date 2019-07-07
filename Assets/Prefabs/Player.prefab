@@ -345,7 +345,6 @@ GameObject:
   - component: {fileID: 6029921547992645049}
   - component: {fileID: 3481457891865195815}
   - component: {fileID: 3481457891865195811}
-  - component: {fileID: 3481457891865195810}
   - component: {fileID: 3481457891865195808}
   m_Layer: 8
   m_Name: Main Camera
@@ -536,20 +535,6 @@ MonoBehaviour:
     m_Bits: 1025
   holding: {fileID: 0}
   playerPickup: {fileID: 3123862483963731375}
---- !u!114 &3481457891865195810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3481457891865195812}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74e8853cc70360c4bb6aecc92ba1b0be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireDelay: 0.05
-  prefab: {fileID: 5365880188706512734, guid: e7800939d05160f4abd612e6507e3175, type: 3}
 --- !u!114 &3481457891865195808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,8 +547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad82f49cca36d844ba3c956d49e249c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 1
-  velocityRollSmoothing: 0.5
+  sensitivity: 10
+  velocityRollSmoothing: 0.05
   velocityRollMultiplier: 0.25
   maxVelocityRoll: 4
-  playerMovement: {fileID: 3481457891362946130}
+  playerMovement: {fileID: 0}
